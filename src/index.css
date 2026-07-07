@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #f0fdf4;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+#root {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100svh;
+}
+
+/* RTL text for Urdu */
+.urdu {
+  direction: rtl;
+  font-family: 'Noto Nastaliq Urdu', 'Arial Unicode MS', sans-serif;
+}
