@@ -2,14 +2,20 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-import Database from 'better-sqlite3';
+import { createClient } from '@libsql/client';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const db = new Database(join(__dirname, 'usage.db'));
 
-db.exec(`
+// Falls back to a local SQLite file when no Turso credentials are set (local dev).
+// In production, set TURSO_DATABASE_URL + TURSO_AUTH_TOKEN so data survives redeploys.
+const db = createClient({
+  url: process.env.TURSO_DATABASE_URL || `file:${join(__dirname, 'usage.db')}`,
+  authToken: process.env.TURSO_AUTH_TOKEN,
+});
+
+await db.execute(`
   CREATE TABLE IF NOT EXISTS calculations (
     id               INTEGER PRIMARY KEY AUTOINCREMENT,
     cows             INTEGER NOT NULL DEFAULT 0,
@@ -174,7 +180,7 @@ app.post('/api/tts', ttsLimiter, async (req, res) => {
 });
 
 // ── Calculation logging ───────────────────────────────────────────────────────
-app.post('/api/calculate', (req, res) => {
+app.post('/api/calculate', async (req, res) => {
   const body = req.body;
   if (!body || typeof body !== 'object') {
     return res.status(400).json({ error: 'Invalid request body' });
@@ -195,32 +201,37 @@ app.post('/api/calculate', (req, res) => {
 
   const isSeasonal = body.isSeasonal ? 1 : 0;
 
-  db.prepare(`
-    INSERT INTO calculations (cows, buffaloes, goats, lpg_price, monthly_savings, annual_savings, fertilizer_value, is_seasonal)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(cows, buffaloes, goats, lpgPrice, monthlySavings, annualSavings, fertilizerValue, isSeasonal);
-
-  res.json(getStats());
+  try {
+    await db.execute({
+      sql: `INSERT INTO calculations (cows, buffaloes, goats, lpg_price, monthly_savings, annual_savings, fertilizer_value, is_seasonal)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      args: [cows, buffaloes, goats, lpgPrice, monthlySavings, annualSavings, fertilizerValue, isSeasonal],
+    });
+    res.json(await getStats());
+  } catch (err) {
+    console.error('[DB] insert error:', err.message);
+    res.status(500).json({ error: 'Failed to save calculation' });
+  }
 });
 
-app.get('/api/stats', (_req, res) => res.json(getStats()));
+app.get('/api/stats', async (_req, res) => res.json(await getStats()));
 
 // ── Admin: view records (rate-limited, key via Authorization header) ──────────
-app.get('/api/records', adminLimiter, requireAdmin, (_req, res) => {
-  const rows = db.prepare('SELECT * FROM calculations ORDER BY created_at DESC').all();
-  res.json(rows);
+app.get('/api/records', adminLimiter, requireAdmin, async (_req, res) => {
+  const result = await db.execute('SELECT * FROM calculations ORDER BY created_at DESC');
+  res.json(result.rows);
 });
 
 // ── Admin: reset data (rate-limited, key via Authorization header) ────────────
-app.delete('/api/reset', adminLimiter, requireAdmin, (_req, res) => {
-  db.prepare('DELETE FROM calculations').run();
-  db.prepare("DELETE FROM sqlite_sequence WHERE name='calculations'").run();
+app.delete('/api/reset', adminLimiter, requireAdmin, async (_req, res) => {
+  await db.execute('DELETE FROM calculations');
+  await db.execute("DELETE FROM sqlite_sequence WHERE name='calculations'");
   console.log('[Admin] Data reset');
   res.json({ ok: true, message: 'All records deleted' });
 });
 
-function getStats() {
-  const row = db.prepare(`
+async function getStats() {
+  const result = await db.execute(`
     SELECT
       COUNT(*)             AS totalUses,
       SUM(annual_savings)  AS totalAnnualSavings,
@@ -230,17 +241,18 @@ function getStats() {
       SUM(buffaloes)       AS totalBuffaloes,
       SUM(goats)           AS totalGoats
     FROM calculations
-  `).get();
+  `);
+  const row = result.rows[0];
 
   return {
-    totalUses:           row.totalUses || 0,
+    totalUses:           Number(row.totalUses || 0),
     totalAnnualSavings:  Math.round(row.totalAnnualSavings || 0),
     totalMonthlySavings: Math.round(row.totalMonthlySavings || 0),
     avgAnnualSavings:    Math.round(row.avgAnnualSavings || 0),
     totalAnimals: {
-      cows:      row.totalCows || 0,
-      buffaloes: row.totalBuffaloes || 0,
-      goats:     row.totalGoats || 0,
+      cows:      Number(row.totalCows || 0),
+      buffaloes: Number(row.totalBuffaloes || 0),
+      goats:     Number(row.totalGoats || 0),
     },
   };
 }
