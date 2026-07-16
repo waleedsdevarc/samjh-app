@@ -36,7 +36,7 @@ function buildSentences(results, animalCounts, useUrdu) {
   const {
     totalAnnualSavings, totalMonthlySavings, monthlyLPGSavings,
     monthlyFertilizerValue, monthlyDigestateVolume, totalDailyDung,
-    monthlyBiogas, lpgPrice, isSeasonal, seasonMonths,
+    monthlyBiogas, lpgPrice,
   } = results;
 
   if (useUrdu) {
@@ -50,16 +50,11 @@ function buildSentences(results, animalCounts, useUrdu) {
       `آپ کے پاس ${parts.join(' اور ')} ہیں۔`,
       `آپ کے جانور روزانہ ${urduNumber(Math.round(totalDailyDung))} کلو گوبر دیتے ہیں۔`,
       `ہر مہینے ${urduNumber(Math.round(monthlyBiogas))} مکعب میٹر بائیو گیس بنتی ہے۔`,
-      isSeasonal
-        ? `بکری کی وجہ سے یہ صرف ${urduNumber(seasonMonths)} مہینوں کا حساب ہے۔`
-        : null,
       `ہر مہینے ایل پی جی پر ${urduNumber(monthlyLPGSavings)} روپے کی بچت ہوگی۔`,
       `ہر مہینے ${urduNumber(Math.round(monthlyDigestateVolume))} کلو کھاد بھی ملے گی۔`,
       `اس کھاد کی قیمت ${urduNumber(monthlyFertilizerValue)} روپے ہے۔`,
       `کل ملا کر ہر مہینے ${urduNumber(totalMonthlySavings)} روپے بچیں گے۔`,
-      isSeasonal
-        ? `${urduNumber(seasonMonths)} مہینوں میں کل ${urduNumber(totalAnnualSavings)} روپے بچیں گے۔`
-        : `سال بھر میں کل ${urduNumber(totalAnnualSavings)} روپے بچیں گے۔`,
+      `سال بھر میں کل ${urduNumber(totalAnnualSavings)} روپے بچیں گے۔`,
       `یہ حساب ${urduNumber(lpgPrice)} روپے فی کلو ایل پی جی پر ہے۔`,
       `سمجھ استعمال کرنے کا شکریہ۔`,
     ].filter(Boolean);
@@ -76,14 +71,11 @@ function buildSentences(results, animalCounts, useUrdu) {
     `You have ${parts.join(' and ')}.`,
     `Your animals produce ${totalDailyDung} kilograms of dung daily.`,
     `This gives ${monthlyBiogas} cubic meters of biogas per month.`,
-    isSeasonal ? `Because you have goats, this covers only ${seasonMonths} months.` : null,
     `Every month you save ${monthlyLPGSavings.toLocaleString()} rupees on LPG.`,
     `You also get ${Math.round(monthlyDigestateVolume)} kilograms of fertilizer per month.`,
     `That fertilizer is worth ${monthlyFertilizerValue.toLocaleString()} rupees.`,
     `Your total monthly saving is ${totalMonthlySavings.toLocaleString()} rupees.`,
-    isSeasonal
-      ? `Over ${seasonMonths} months, you save ${totalAnnualSavings.toLocaleString()} rupees in total.`
-      : `Over a full year, you save ${totalAnnualSavings.toLocaleString()} rupees in total.`,
+    `Over a full year, you save ${totalAnnualSavings.toLocaleString()} rupees in total.`,
     `Based on LPG at ${lpgPrice} rupees per kilogram.`,
     `Thank you for using Samjh.`,
   ].filter(Boolean);

@@ -72,23 +72,10 @@ export default function ResultsCard({ animalCounts, onReset }) {
         <p className="text-gray-500 text-sm">Your Biogas Savings</p>
       </div>
 
-      {/* Seasonal Warning */}
-      {results.isSeasonal && (
-        <div className="mx-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-xl p-4 mb-4">
-          <p className="font-bold text-yellow-800 urdu" dir="rtl">⚠️ موسمی تنبیہ</p>
-          <p className="text-yellow-800 text-sm urdu mt-1" dir="rtl">
-            بکری کی بائیو گیس صرف ۷ ماہ (اپریل–اکتوبر) کام کرتی ہے۔ سردیوں میں صفر۔
-          </p>
-          <p className="text-yellow-700 text-xs mt-1">⚠️ Goat biogas: Apr–Oct only. Zero gas in winter (Nov–Mar).</p>
-        </div>
-      )}
-
       {/* Annual Savings Hero */}
       <div className="mx-4 bg-white rounded-2xl shadow-lg p-6 text-center border-2 border-green-200 mb-4">
-        <p className="text-green-700 font-bold text-base urdu" dir="rtl">
-          {results.isSeasonal ? `سالانہ بچت (${results.seasonMonths} ماہ)` : 'سالانہ بچت'}
-        </p>
-        <p className="text-gray-600 text-xs mb-2">Annual Savings{results.isSeasonal ? ` (${results.seasonMonths} months)` : ''}</p>
+        <p className="text-green-700 font-bold text-base urdu" dir="rtl">سالانہ بچت</p>
+        <p className="text-gray-600 text-xs mb-2">Annual Savings</p>
         <p className="text-5xl font-black text-green-700 mb-4">{fmt(results.totalAnnualSavings)}</p>
 
         <div className="flex justify-around pt-4 border-t border-gray-100">

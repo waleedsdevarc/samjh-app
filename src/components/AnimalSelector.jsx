@@ -25,8 +25,8 @@ const ANIMALS = [
     urdu: 'بکری',
     en: 'Goat',
     dung: '1.75 kg/day',
-    border: 'border-yellow-300',
-    warning: 'صرف اپریل–اکتوبر | April–Oct only',
+    border: 'border-green-300',
+    warning: null,
   },
 ];
 

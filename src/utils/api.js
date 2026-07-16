@@ -13,7 +13,6 @@ export async function logCalculation(animalCounts, results) {
         monthlySavings:  results.totalMonthlySavings,
         annualSavings:   results.totalAnnualSavings,
         fertilizerValue: results.monthlyFertilizerValue,
-        isSeasonal:      results.isSeasonal,
       }),
     });
     return await res.json();

@@ -2,18 +2,14 @@ export const COEFFICIENTS = {
   cow: {
     dailyDung: 15,
     biogasYield: 0.025,
-    isSeasonal: false,
   },
   buffalo: {
     dailyDung: 9.5,
     biogasYield: 0.075,
-    isSeasonal: false,
   },
   goat: {
     dailyDung: 1.75,
     biogasYield: 0.35,
-    isSeasonal: true,
-    seasonMonths: 7,
   },
 };
 
@@ -27,8 +23,6 @@ export const CONVERSION = {
 export function calculateSavings(animalCounts, lpgPrice = 250) {
   let totalDailyDung = 0;
   let totalDailyBiogas = 0;
-  let isSeasonal = false;
-  let seasonMonths = 12;
 
   Object.entries(animalCounts).forEach(([animal, count]) => {
     if (count > 0) {
@@ -36,11 +30,6 @@ export function calculateSavings(animalCounts, lpgPrice = 250) {
       const dailyBiogas = dailyDung * COEFFICIENTS[animal].biogasYield;
       totalDailyDung += dailyDung;
       totalDailyBiogas += dailyBiogas;
-
-      if (COEFFICIENTS[animal].isSeasonal) {
-        isSeasonal = true;
-        seasonMonths = COEFFICIENTS[animal].seasonMonths;
-      }
     }
   });
 
@@ -52,7 +41,7 @@ export function calculateSavings(animalCounts, lpgPrice = 250) {
   const monthlyFertilizerValue = monthlyDigestateVolume * CONVERSION.fertilizerValue;
 
   const totalMonthlySavings = monthlyLPGSavings + monthlyFertilizerValue;
-  const totalAnnualSavings = totalMonthlySavings * (isSeasonal ? seasonMonths : 12);
+  const totalAnnualSavings = totalMonthlySavings * 12;
 
   return {
     totalDailyDung: Math.round(totalDailyDung * 10) / 10,
@@ -64,8 +53,6 @@ export function calculateSavings(animalCounts, lpgPrice = 250) {
     monthlyFertilizerValue: Math.round(monthlyFertilizerValue),
     totalMonthlySavings: Math.round(totalMonthlySavings),
     totalAnnualSavings: Math.round(totalAnnualSavings),
-    isSeasonal,
-    seasonMonths,
     lpgPrice,
   };
 }
