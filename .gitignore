@@ -29,7 +29,6 @@ pnpm-debug.log*
 Thumbs.db
 *.suo
 *.sw?
-.claude/
 
-# Session notes — may contain local secrets, never for public repo
+# Local notes — may contain secrets, never for public repo
 SESSION_SUMMARY.md
