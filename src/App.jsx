@@ -31,7 +31,7 @@ export default function App() {
     <div className="min-h-screen bg-green-50">
       {/* ── Top tab bar ── */}
       <div className="sticky top-0 z-50 bg-green-800 shadow-lg">
-        <div className="max-w-md sm:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 pt-2 pb-1.5 flex gap-2">
+        <div className="max-w-md sm:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 pt-2 pb-1.5 flex justify-center gap-2">
           {TABS.map(t => (
             <button
               key={t.id}
