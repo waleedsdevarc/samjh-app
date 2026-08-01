@@ -28,26 +28,28 @@ export default function App() {
   const handleReset     = () => { setCalcScreen('selector'); setAnimalCounts(null); };
 
   return (
-    <div className="max-w-md mx-auto bg-green-50 min-h-screen flex flex-col">
+    <div className="min-h-screen bg-green-50">
       {/* ── Top tab bar ── */}
-      <div className="sticky top-0 z-50 bg-green-800 px-3 pt-2 pb-1.5 flex gap-2 shadow-lg">
-        {TABS.map(t => (
-          <button
-            key={t.id}
-            onClick={() => setTab(t.id)}
-            className={`flex-1 py-1.5 px-1 rounded-xl text-center transition-all active:scale-95 ${
-              tab === t.id ? 'bg-white text-green-800 shadow' : 'text-green-100 hover:bg-green-700'
-            }`}
-          >
-            <div className="text-base leading-none">{t.emoji}</div>
-            <div className="urdu text-xs font-bold mt-0.5 leading-none" dir="rtl">{t.urdu}</div>
-            <div className="text-xs opacity-75 leading-none mt-0.5">{t.en}</div>
-          </button>
-        ))}
+      <div className="sticky top-0 z-50 bg-green-800 shadow-lg">
+        <div className="max-w-md sm:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto px-3 pt-2 pb-1.5 flex gap-2">
+          {TABS.map(t => (
+            <button
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              className={`flex-1 sm:flex-none sm:px-8 py-1.5 px-1 rounded-xl text-center transition-all active:scale-95 ${
+                tab === t.id ? 'bg-white text-green-800 shadow' : 'text-green-100 hover:bg-green-700'
+              }`}
+            >
+              <div className="text-base leading-none">{t.emoji}</div>
+              <div className="urdu text-xs font-bold mt-0.5 leading-none" dir="rtl">{t.urdu}</div>
+              <div className="text-xs opacity-75 leading-none mt-0.5">{t.en}</div>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* ── Content ── */}
-      <div className="flex-1">
+      <div className="max-w-md sm:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto">
         {tab === 'calculator' && (
           calcScreen === 'selector'
             ? <AnimalSelector onCalculate={handleCalculate} />

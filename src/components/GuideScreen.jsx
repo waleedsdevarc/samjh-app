@@ -199,7 +199,7 @@ function Step({ n, title, urdu, children }) {
 
 export default function GuideScreen() {
   return (
-    <div className="bg-green-50 min-h-screen pb-8">
+    <div className="pb-8">
       {/* Header */}
       <div className="text-center pt-5 pb-3 px-4">
         <h1 className="text-2xl font-bold text-green-900">📖 راہنما</h1>

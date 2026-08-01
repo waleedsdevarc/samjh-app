@@ -39,7 +39,7 @@ export default function AnimalSelector({ onCalculate }) {
   const total = counts.cow + counts.buffalo + counts.goat;
 
   return (
-    <div className="min-h-screen bg-green-50 pb-6">
+    <div className="pb-6">
       <div className="p-4 space-y-4">
       {/* Header */}
       <div className="text-center pt-4 pb-2">
@@ -52,39 +52,41 @@ export default function AnimalSelector({ onCalculate }) {
       </div>
 
       {/* Animal Cards */}
-      {ANIMALS.map(({ key, emoji, urdu, en, dung, border, warning }) => (
-        <div key={key} className={`bg-white rounded-2xl shadow-md border-2 ${border} p-5`}>
-          <div className="text-center mb-3">
-            <span className="text-5xl">{emoji}</span>
-            <p className="text-xl font-bold mt-1 urdu" dir="rtl">{urdu}</p>
-            <p className="text-gray-500 text-sm font-medium">{en} · {dung} dung</p>
-          </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {ANIMALS.map(({ key, emoji, urdu, en, dung, border, warning }) => (
+          <div key={key} className={`bg-white rounded-2xl shadow-md border-2 ${border} p-5`}>
+            <div className="text-center mb-3">
+              <span className="text-5xl">{emoji}</span>
+              <p className="text-xl font-bold mt-1 urdu" dir="rtl">{urdu}</p>
+              <p className="text-gray-500 text-sm font-medium">{en} · {dung} dung</p>
+            </div>
 
-          <div className="flex items-center justify-center gap-5">
-            <button
-              onClick={() => dec(key)}
-              className="w-14 h-14 bg-gray-200 rounded-full text-2xl font-bold text-gray-700 active:scale-95 transition-transform flex items-center justify-center shadow"
-              aria-label={`Remove ${en}`}
-            >
-              −
-            </button>
-            <span className="text-5xl font-bold text-green-800 w-12 text-center">{counts[key]}</span>
-            <button
-              onClick={() => inc(key)}
-              className="w-14 h-14 bg-orange-500 rounded-full text-2xl font-bold text-white active:scale-95 transition-transform flex items-center justify-center shadow"
-              aria-label={`Add ${en}`}
-            >
-              +
-            </button>
-          </div>
+            <div className="flex items-center justify-center gap-5">
+              <button
+                onClick={() => dec(key)}
+                className="w-14 h-14 bg-gray-200 rounded-full text-2xl font-bold text-gray-700 active:scale-95 transition-transform flex items-center justify-center shadow"
+                aria-label={`Remove ${en}`}
+              >
+                −
+              </button>
+              <span className="text-5xl font-bold text-green-800 w-12 text-center">{counts[key]}</span>
+              <button
+                onClick={() => inc(key)}
+                className="w-14 h-14 bg-orange-500 rounded-full text-2xl font-bold text-white active:scale-95 transition-transform flex items-center justify-center shadow"
+                aria-label={`Add ${en}`}
+              >
+                +
+              </button>
+            </div>
 
-          {warning && counts[key] > 0 && (
-            <p className="text-center text-yellow-700 text-xs font-semibold mt-3 bg-yellow-50 rounded-lg p-2">
-              ⚠️ {warning}
-            </p>
-          )}
-        </div>
-      ))}
+            {warning && counts[key] > 0 && (
+              <p className="text-center text-yellow-700 text-xs font-semibold mt-3 bg-yellow-50 rounded-lg p-2">
+                ⚠️ {warning}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
 
       {/* Calculate Button */}
       <button

@@ -65,7 +65,7 @@ export default function ResultsCard({ animalCounts, onReset }) {
   const lpgSavingsAtMin = Math.round((results.monthlyBiogas / 1.9) * 150 * 12);
 
   return (
-    <div className="min-h-screen bg-green-50 pb-8">
+    <div className="pb-8">
       {/* Header */}
       <div className="text-center pt-5 pb-3 px-4">
         <h1 className="text-2xl font-bold text-green-900">🌾 آپ کی بچت</h1>
@@ -99,8 +99,10 @@ export default function ResultsCard({ animalCounts, onReset }) {
         </div>
       </div>
 
+      {/* LPG Price + Breakdown side-by-side on large screens */}
+      <div className="lg:grid lg:grid-cols-2 lg:gap-4 lg:items-start mx-4">
       {/* LPG Price — improved UI */}
-      <div className="mx-4 bg-white rounded-2xl shadow p-5 border border-gray-200 mb-4">
+      <div className="bg-white rounded-2xl shadow p-5 border border-gray-200 mb-4 lg:mb-0">
         <div className="flex justify-between items-start mb-1">
           <div>
             <p className="font-bold text-gray-800">⛽ LPG قیمت | Price</p>
@@ -142,7 +144,7 @@ export default function ResultsCard({ animalCounts, onReset }) {
       </div>
 
       {/* Breakdown */}
-      <div className="mx-4 bg-green-800 rounded-2xl shadow-lg p-5 text-white space-y-2 mb-4">
+      <div className="bg-green-800 rounded-2xl shadow-lg p-5 text-white space-y-2 mb-4 lg:mb-0">
         <p className="font-bold text-base text-center urdu mb-3" dir="rtl">📊 مکمل تفصیل | Full Breakdown</p>
         {[
           { urdu: 'روزانہ کھاد', en: 'Daily Dung', val: `${results.totalDailyDung} kg` },
@@ -161,6 +163,7 @@ export default function ResultsCard({ animalCounts, onReset }) {
             <span className="font-bold">{val}</span>
           </div>
         ))}
+      </div>
       </div>
 
       {/* Action Buttons */}
