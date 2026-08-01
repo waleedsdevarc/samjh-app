@@ -67,13 +67,17 @@ const ttsLimiter = rateLimit({
 });
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
-const allowedOrigin = process.env.ALLOWED_ORIGIN || 'http://localhost:5173';
+// ALLOWED_ORIGIN accepts one or more comma-separated origins, e.g.
+// "https://samjh.site,https://www.samjh.site,https://samjh-app.netlify.app"
+const allowedOrigins = (process.env.ALLOWED_ORIGIN || 'http://localhost:5173')
+  .split(',')
+  .map(o => o.trim());
 const app = express();
 app.use(cors({
   origin: (origin, cb) => {
     // Allow requests with no origin (curl, server-to-server) only in dev
     if (!origin && process.env.NODE_ENV !== 'production') return cb(null, true);
-    if (origin === allowedOrigin) return cb(null, true);
+    if (allowedOrigins.includes(origin)) return cb(null, true);
     cb(new Error('Not allowed by CORS'));
   },
 }));
@@ -263,5 +267,5 @@ app.listen(PORT, () => {
   console.log(`سمجھ API → http://localhost:${PORT}`);
   console.log(`✅  Urdu TTS: Google Translate proxy active`);
   console.log(keyOk ? '✅  ADMIN_KEY: set' : '⚠️  ADMIN_KEY: using insecure default — set it in .env');
-  console.log(`✅  CORS origin: ${allowedOrigin}`);
+  console.log(`✅  CORS origins: ${allowedOrigins.join(', ')}`);
 });
