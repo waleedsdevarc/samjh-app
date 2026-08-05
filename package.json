@@ -3,6 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "Bilingual Urdu/English biogas savings calculator for Punjab farmers",
+  "author": "Waleed Ahmed Syed",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/waleedsdevarc/samjh-app"
+  },
+  "homepage": "https://samjh.site",
   "scripts": {
     "dev": "vite",
     "server": "node server.js",

@@ -2,7 +2,7 @@
 
 A bilingual Urdu/English web app that estimates how much a household in rural Punjab could save on cooking fuel and fertilizer by installing a biogas digester, based on the number of cows, buffalo, and goats they own.
 
-Live at: https://samjh-app.netlify.app
+Live at: https://samjh.site
 
 ## What it does
 
@@ -100,3 +100,7 @@ Without `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` set, the backend falls back 
 ## Deployment
 
 The live site runs on Netlify (frontend) and Render (backend), both connected to this repo with auto-deploy on push to `main`. The database is a free Turso instance, set via `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` on Render, so calculation history survives backend redeploys.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

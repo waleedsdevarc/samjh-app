@@ -4,10 +4,20 @@ import ResultsCard from './components/ResultsCard';
 import AdminDashboard from './components/AdminDashboard';
 import GuideScreen from './components/GuideScreen';
 import WhyScreen from './components/WhyScreen';
+import Footer from './components/Footer';
 import { preloadVoices } from './utils/speech';
 import './index.css';
 
 const isAdminRoute = window.location.pathname === '/admin';
+
+// Belt-and-suspenders: robots.txt already disallows /admin, this keeps it
+// out of the index even if a crawler ignores that.
+if (isAdminRoute) {
+  const meta = document.createElement('meta');
+  meta.name = 'robots';
+  meta.content = 'noindex, nofollow';
+  document.head.appendChild(meta);
+}
 
 const TABS = [
   { id: 'calculator', urdu: 'حساب', en: 'Calculator', emoji: '🧮' },
@@ -58,6 +68,8 @@ export default function App() {
         {tab === 'guide' && <GuideScreen />}
         {tab === 'why'   && <WhyScreen />}
       </div>
+
+      <Footer />
     </div>
   );
 }

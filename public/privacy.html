@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://samjh.site/privacy.html" />
+  <title>Privacy Policy | سمجھ Samjh</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f0fdf4;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    header {
+      background: #166534;
+      color: white;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header p { margin: 4px 0 0; opacity: 0.85; font-size: 0.9rem; }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+    h2 {
+      color: #166534;
+      font-size: 1.15rem;
+      margin-top: 2em;
+    }
+    a { color: #166534; }
+    .updated { color: #6b7280; font-size: 0.85rem; margin-bottom: 2em; }
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+    code {
+      background: #f0fdf4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    .back {
+      display: inline-block;
+      margin-top: 32px;
+      padding: 10px 20px;
+      background: #166534;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌾 سمجھ Samjh</h1>
+    <p>Privacy Policy</p>
+  </header>
+  <main>
+    <p class="updated">Last updated: August 5, 2026</p>
+
+    <p>Samjh is a free biogas savings calculator. This page explains, in plain language, what data the app collects, why, and who can see it. There is nothing hidden here beyond what's written below — you can also read the actual source code at the <a href="https://github.com/waleedsdevarc/samjh-app">GitHub repository</a> to verify any of this yourself.</p>
+
+    <h2>What Samjh does not do</h2>
+    <div class="card">
+      <ul>
+        <li>No cookies</li>
+        <li>No analytics or tracking scripts (no Google Analytics, no Facebook Pixel, no anything like that)</li>
+        <li>No accounts, no sign-up, no passwords for regular users</li>
+        <li>No names, emails, phone numbers, or location data are ever asked for or collected</li>
+      </ul>
+    </div>
+
+    <h2>What Samjh does collect</h2>
+    <p>When you use the calculator, the numbers you enter (how many cows, buffalo, and goats, and your chosen LPG price) and the results calculated from them are sent to our server and saved in a database, along with the date and time. That's it — just the numbers. Nothing that identifies who you are is attached to this record.</p>
+    <p>This data is used only to show aggregate usage statistics to the site owner (e.g. "how many people have used the calculator, and what's the average savings shown"). It is not sold, shared, or used for advertising.</p>
+
+    <h2>Text-to-speech ("Listen to Everything")</h2>
+    <p>If you tap the listen button, the calculated savings summary (a sentence like "you save X rupees a month") is sent from our server to Google's public Translate text-to-speech service to generate the audio. Google receives this text and the request comes from our server, not directly from your device. No personal information is included in that text — only the calculated numbers.</p>
+
+    <h2>Fonts</h2>
+    <p>This site loads the Noto Nastaliq Urdu font directly from Google Fonts (<code>fonts.googleapis.com</code>) so Urdu text displays correctly. Loading a font this way means your browser makes a direct request to Google's servers, which can see the IP address that request came from, the same way it would for any website that uses Google Fonts this way.</p>
+
+    <h2>Where the app runs</h2>
+    <p>Samjh is hosted using the following third-party services, each of which processes traffic/data as part of running the site:</p>
+    <div class="card">
+      <ul>
+        <li><strong>Netlify</strong> — hosts the website itself</li>
+        <li><strong>Render</strong> — hosts the backend server</li>
+        <li><strong>Turso</strong> — hosts the database where calculation numbers are stored</li>
+      </ul>
+    </div>
+
+    <h2>Abuse prevention</h2>
+    <p>The server temporarily notes the IP address of incoming requests to prevent spam/abuse (for example, limiting how many admin login attempts can be made in 15 minutes). This is kept in memory only, is never written to the database, and is cleared whenever the server restarts.</p>
+
+    <h2>Admin dashboard</h2>
+    <p>There is a password-protected admin page used only by the site owner to view aggregate usage numbers and export or clear the data described above. It requires a separate password not available to regular visitors.</p>
+
+    <h2>Questions</h2>
+    <p>If you have a question about any of this, open an issue or reach out via <a href="https://github.com/waleedsdevarc">the site owner's GitHub profile</a>.</p>
+
+    <a class="back" href="/">← Back to Samjh</a>
+  </main>
+</body>
+</html>

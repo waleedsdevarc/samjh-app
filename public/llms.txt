@@ -1,0 +1,17 @@
+# Samjh (سمجھ)
+
+> Free bilingual Urdu/English web calculator that estimates how much a household in rural Punjab could save on cooking fuel (LPG) and fertilizer by installing a small biogas digester, based on how many cows, buffalo, and goats they own.
+
+Samjh is a free, standalone tool. It is not affiliated with any company, NGO, or government program. Results are calculated client-side from published biogas-yield research; see the source spreadsheet in the GitHub repository for citations.
+
+## Pages
+
+- [Samjh](https://samjh.site/): The main app. Pick animal counts, see monthly and annual savings, listen to results read aloud in Urdu, browse a step-by-step build/operate guide for a household biogas unit, and read why switching to biogas matters.
+
+## Source
+
+- [GitHub repository](https://github.com/waleedsdevarc/samjh-app): Full source code (MIT licensed), including the calculation logic and cited data sources.
+
+## Optional
+
+- [Privacy policy](https://samjh.site/privacy.html): What data the app collects and why.
